@@ -21,7 +21,7 @@
  */
 package org.wildfly.clustering.web.infinispan.session.coarse;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
 
 import org.infinispan.Cache;
@@ -98,7 +98,7 @@ public class CoarseSessionFactory<L> implements SessionFactory<CoarseSessionEntr
             MarshalledValue<Map<String, Object>, MarshallingContext> value = this.invoker.invoke(this.attributesCache, new FindOperation<SessionAttributesCacheKey, MarshalledValue<Map<String, Object>, MarshallingContext>>(new SessionAttributesCacheKey(id)), Flag.SKIP_LOCKING);
             return new CoarseSessionEntry<>(existingCacheEntry, value);
         }
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new ConcurrentHashMap<>();
         MarshalledValue<Map<String, Object>, MarshallingContext> value = this.marshaller.write(map);
         MarshalledValue<Map<String, Object>, MarshallingContext> existingValue = this.invoker.invoke(this.attributesCache, new CreateOperation<>(new SessionAttributesCacheKey(id), value), Flag.SKIP_LOCKING);
         return new CoarseSessionEntry<>(cacheEntry, (existingValue != null) ? existingValue : value);
