@@ -43,6 +43,14 @@
         <version.org.zanata.plugin>1.5.0</version.org.zanata.plugin>
     </properties>
 
+  <distributionManagement>
+    <repository>
+      <id>ome-jboss-release</id>
+      <name>Releases-tools.ome.ksu.edu</name>
+      <url>https://tools.ome.ksu.edu/artifactory/ome-jboss-release</url>
+    </repository>
+  </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.jboss.as</groupId>
