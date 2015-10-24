@@ -21,7 +21,7 @@
  */
 package org.wildfly.clustering.web.infinispan.sso.coarse;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
 
 import org.infinispan.Cache;
@@ -70,7 +70,7 @@ public class CoarseSSOFactory<A, D, L> implements SSOFactory<CoarseSSOEntry<A, D
             Map<D, String> value = this.sessionsCache.get(new CoarseSessionsKey(id));
             return new CoarseSSOEntry<>(authentication, entry.getLocalContext(), value);
         }
-        Map<D, String> map = new HashMap<>();
+        Map<D, String> map = new ConcurrentHashMap<>();
         Map<D, String> existingMap = this.sessionsCache.getAdvancedCache().withFlags(Flag.FORCE_SYNCHRONOUS).putIfAbsent(new CoarseSessionsKey(id), map);
         return new CoarseSSOEntry<>(authentication, entry.getLocalContext(), (existingMap != null) ? existingMap : map);
     }
