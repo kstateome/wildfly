@@ -52,6 +52,14 @@
         <url>${jboss.as.scm.url}</url>
     </scm>
 
+  <distributionManagement>
+    <repository>
+      <id>ome-jboss-release</id>
+      <name>Releases-tools.ome.ksu.edu</name>
+      <url>https://tools.ome.ksu.edu/artifactory/ome-jboss-release</url>
+    </repository>
+  </distributionManagement>
+
     <properties>
         <!-- Release Info -->
         <jboss.as.release.version>${project.version}</jboss.as.release.version>
